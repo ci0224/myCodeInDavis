@@ -1,0 +1,45 @@
+prolog:
+
+\= (inequality)
+
+append([],Y,Y).
+append([H|X],Y,[H|Z]) :- append(X,Y,Z).
+
+myreverse([], []). 
+myreverse([H|T], L1) :- myreverse(T,L2),myappend(L2,[H],L1).
+
+prefix(X,Z) :- append(X,Y,Z). 
+
+suffix(Y,Z) :- append(X,Y,Z). 
+
+sublist1(S,L) :- prefix(X,L), suffix(S,X).
+sublist2(S,L) :- suffix(S,X), prefix(X,L).
+
+fac(0,1). 
+fac(N,R) :- N > 0,
+	M is N-1,
+	fac(M,S),
+	R is S*N.
+
+fib(0,0).
+fib(1,1). 
+fib(N,M) :- N > 1, 
+	N1 is N-1,
+	N2 is N-2,
+	fib(N1,M1),
+	fib(N2,M2),
+	M is M1+M2. 
+
+quicksort([],[]).
+quicksort([X|L],K) :- split(X,L,L1,L2),
+	quicksort(L1,K1),
+	quicksort(L2,K2),
+	append(K1,[X|K2],K).
+
+split(_,[],[],[]).
+split(X,[Y|L],K,[Y|M]) :- X < Y, split(X,L,K,M).
+split(X,[Y|L],[Y|K],M) :- X >= Y, split(X,L,K,M).
+
+
+
+LISP:
